@@ -1,0 +1,24 @@
+{
+  "domain_benchmarks": {
+    "Human Resource": {
+      "high": 90,
+      "medium": 80
+    },
+    "Sales": {
+      "high": 90,
+      "medium": 80
+    },
+    "Marketing": {
+      "high": 90,
+      "medium": 80
+    },
+    "Others": {
+      "high": 85,
+      "medium": 75
+    },
+    "default": {
+      "high": 80,
+      "medium": 70
+    }
+  }
+}

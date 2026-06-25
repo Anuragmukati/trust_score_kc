@@ -1,0 +1,10 @@
+PROJECT_ID: "dmgcp-del-181"
+LOCATION: "us-central1"
+CONFIG_BUCKET: "vz-kc-aspect-poc"
+DQ_DATASET: "udm_prd_tbls"
+DQ_TABLE: "central_dq_results"
+
+
+SPREADSHEET_ID: "1Es54c5Tpnp2kHD-73Z4bHNis0usd6VT4kDUTo1TOkAU"
+GOVERNANCE_ASPECT_TYPE: "projects/dmgcp-del-181/locations/us-central1/aspectTypes/data-governance"
+TRUST_ASPECT_TYPE: "projects/dmgcp-del-181/locations/us-central1/aspectTypes/data-trustability"
