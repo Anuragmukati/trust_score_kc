@@ -46,9 +46,26 @@ The behavior is controlled via `config.yaml`. Key parameters include:
 
 ## Prerequisites
 
-*   **Service Account:** Requires permissions for BigQuery (Data Viewer/Job User), GCS (Object Viewer), and Dataplex (Catalog Editor).
+*   **Service Account:** A custom SA is required for production.
 *   **Google Sheets API:** The service account must have access to the Google Sheet defined in the config.
 *   **Dataplex Aspects:** The `DataDomain` must be populated in a Governance-related aspect for domain-specific scoring to work; otherwise, it defaults to a standard benchmark.
+
+## Setup & Authentication
+
+### 1. IAM Roles
+Assign the following roles to your Service Account:
+- `roles/bigquery.dataViewer` & `roles/bigquery.jobUser`
+- `roles/storage.objectViewer`
+- `roles/dataplex.catalogEditor`
+
+### 2. Google Sheets Access
+You must **Share** the registry spreadsheet with the Service Account's email address (e.g., `service-account@project.iam.gserviceaccount.com`) to allow `gspread` to read the table list.
+
+### 3. Local Development
+Set the environment variable to point to your key file:
+```bash
+export GOOGLE_APPLICATION_CREDENTIALS="path/to/key.json"
+```
 
 ## Logic Breakdown: Scoring
 
@@ -63,4 +80,13 @@ Scores are categorized based on the `dq_thresholds.json` mapping:
 
 ## Execution
 
-The script is designed to run as a standalone job (e.g., via Cloud Run Jobs or a scheduled VM).
+The script is designed to run as a standalone job. To deploy it as a **Cloud Run Job** using your project's default App Engine Service Account (App SA):
+
+```bash
+gcloud run jobs deploy trust-score-job \
+  --source . \
+  --project [Project_ID] \
+  --service-account="Service_Account" \
+  --region="us-central1"
+```
+*Note: Ensure the App SA has been granted the IAM roles listed in the Setup section and has "Viewer" access to the Registry Google Sheet.*
